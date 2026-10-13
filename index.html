@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4f3ed">
+  <title>粒间 INTERFORM · 灵感创作台</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-view="overview">
+  <canvas id="ambientCanvas" class="ambient-canvas" aria-hidden="true"></canvas>
+  <header class="site-header">
+    <button class="brand" type="button" data-home aria-label="粒间首页"><svg viewBox="0 0 38 38" aria-hidden="true"><circle cx="14" cy="19" r="11"/><circle cx="24" cy="19" r="11"/><circle class="brand-dot" cx="19" cy="19" r="3"/></svg><strong>粒间<span>INTERFORM</span></strong></button>
+    <nav class="main-nav" aria-label="页面"><button class="nav-item is-active" type="button" data-view="overview" aria-current="page">灵感画布</button><button class="nav-item" type="button" data-view="notes">笔记索引</button><button class="nav-item" type="button" data-view="tasks">任务清单</button></nav>
+    <div class="header-actions"><label class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg><input id="globalSearch" type="search" placeholder="搜索笔记与任务" aria-label="搜索演示笔记或任务" autocomplete="off"><kbd>/</kbd></label><button class="settings-button" id="settingsButton" type="button" aria-label="打开粒子设置"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2.5"/><circle cx="15" cy="17" r="2.5"/></svg><span>画布设置</span></button></div>
+  </header>
+
+  <main class="workspace">
+    <section id="overviewView" class="view is-visible" aria-label="灵感画布">
+      <div class="creative-board">
+        <section class="editorial-side">
+          <h1>Ideas,<br>in <span>motion.</span><svg class="title-arrow" viewBox="0 0 60 60" aria-hidden="true"><path d="M8 52 50 10M11 10h39v39"/></svg></h1>
+          <h2>灵感，正在成形。</h2>
+          <p class="intro-copy">让散落的思路彼此靠近。<br>在流动中发现连接，在记录中留下灵感。</p>
+          <div class="intro-actions"><button class="primary-button" id="viewAllNotes" type="button">打开我的笔记 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button><span>个人工作空间</span></div>
+          <div id="overviewFocusSlot" class="overview-focus-slot"></div>
+        </section>
+
+        <section class="canvas-zone" aria-label="交互粒子画布">
+          <div class="canvas-topline"><span class="canvas-name">形态研究 <span id="shapeName">共生环</span></span><span class="particle-readout"><b id="particleCount">加载中</b> 颗粒子</span></div>
+          <div class="sculpture-stage" id="universeStage"><canvas id="sphereCanvas" aria-label="可交互的密集粒子雕塑"></canvas><span class="axis-mark axis-top" aria-hidden="true"></span><span class="axis-mark axis-bottom" aria-hidden="true"></span><span class="canvas-coordinate" aria-hidden="true">x · y · z</span></div>
+          <div class="canvas-bottomline"><div class="shape-picker" role="group" aria-label="切换粒子形态"><button type="button" class="shape-option is-active" data-shape="knot" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="10" ry="5" transform="rotate(-40 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="5" transform="rotate(40 12 12)"/></svg>共生环</button><button type="button" class="shape-option" data-shape="sphere" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/></svg>引力球</button><button type="button" class="shape-option" data-shape="wave" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 7c5-7 15 7 20 0M2 12c5-7 15 7 20 0M2 17c5-7 15 7 20 0"/></svg>流动面</button></div><button id="motionButton" class="motion-button" type="button" aria-pressed="false">暂停动效</button></div>
+        </section>
+      </div>
+
+      <div class="control-dock" aria-label="画布快捷控制">
+        <div class="dock-label"><span class="motion-indicator" aria-hidden="true"></span><strong>让灵感流动</strong><span class="dock-hint">移动指针，观察形态</span></div>
+        <div class="quick-palettes" role="group" aria-label="快捷配色"><button class="palette-option" data-palette="mint" type="button" aria-label="松墨配色" title="松墨"><i class="swatch mint"></i></button><button class="palette-option is-active" data-palette="blue" type="button" aria-label="钴蓝配色" title="钴蓝"><i class="swatch blue"></i></button><button class="palette-option" data-palette="violet" type="button" aria-label="紫墨配色" title="紫墨"><i class="swatch violet"></i></button><button class="palette-option" data-palette="gold" type="button" aria-label="陶土配色" title="陶土"><i class="swatch gold"></i></button></div>
+        <label class="density-control"><span>密度</span><input id="densityRange" type="range" min="0.65" max="1.6" step="0.05" value="1" aria-label="粒子密度"><output id="densityOutput">100%</output></label>
+      </div>
+
+      <section class="activity-workbench" aria-labelledby="activityTitle"><div class="workbench-heading"><div><h2 id="activityTitle">继续上次的思路</h2><p>从一条记录开始，让想法继续生长。</p></div><div class="segmented" role="group" aria-label="活动筛选"><button class="segment is-active" type="button" data-activity-filter="all">全部</button><button class="segment" type="button" data-activity-filter="notes">笔记</button><button class="segment" type="button" data-activity-filter="tasks">任务</button></div></div><div id="activityList" class="activity-list"></div></section>
+    </section>
+
+    <section id="notesView" class="view list-view" hidden aria-label="笔记索引"><div class="list-heading"><div><h1>把思路留下来。</h1><p>搜索、筛选，再展开一篇笔记。</p></div><label class="filter-label">主题 <select id="folderFilter" aria-label="筛选笔记主题"><option value="all">全部主题</option></select></label></div><div class="table-head"><span>笔记</span><span>主题</span><span>状态</span><span>更新</span></div><div id="noteRows" class="note-rows"></div><div class="list-footer" id="notesResultCount"></div><div id="notesFocusSlot" class="notes-focus-slot"></div></section>
+
+    <section id="tasksView" class="view list-view" hidden aria-label="任务"><div class="list-heading"><div><h1>把想法向前推进。</h1><p>勾选事项，给每一步留一个完成的记号。</p></div><span class="task-progress" id="taskProgress"></span></div><div id="taskRows" class="task-rows"></div><div class="list-footer">任务状态仅保存在当前浏览器。</div></section>
+
+    <div class="space-summary" aria-label="空间概览"><span><b id="noteCount">12</b> 篇笔记</span><span><b id="folderCount">6</b> 个主题</span><span><b id="linkCount">28</b> 条关联</span><span><b id="pendingCount">5</b> 项待办</span><span><b id="doneCount">3</b> 项完成</span><span class="summary-caption">慢慢积累，自成脉络。</span></div>
+  </main>
+  <footer class="site-footer"><span>粒间 · 为流动的想法留一个位置</span><span>本地演示数据 <i></i> 独立运行</span></footer>
+
+  <article class="focus-note" id="focusNote" aria-label="笔记详情"><div class="focus-note-top"><span>此刻聚焦</span><span class="detail-code" id="detailCode">NOTE-001</span></div><h3 id="detailTitle">知识库架构概览</h3><p id="detailDescription"></p><dl class="detail-meta"><div><dt>主题</dt><dd id="detailFolder"></dd></div><div><dt>更新</dt><dd id="detailUpdated"></dd></div><div><dt>关联</dt><dd id="detailLinks"></dd></div><div class="detail-type"><dt>类型</dt><dd id="detailType"></dd></div></dl><div class="focus-note-bottom"><div class="detail-tags" id="detailTags"></div><button class="copy-button" id="copyTitleButton" type="button" aria-label="复制笔记标题"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg></button></div><span id="detailStatus" class="detail-status"></span></article>
+
+  <aside id="settingsDrawer" class="settings-drawer" aria-label="粒子设置" aria-hidden="true" inert><div class="drawer-header"><h2>画布设置</h2><button id="closeSettings" class="drawer-close" type="button" aria-label="关闭粒子设置"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div><div class="drawer-preview"><strong id="drawerParticleCount">加载中</strong><span>颗实时粒子</span></div><label class="drawer-field"><span>粒子密度 <output id="drawerDensityOutput">100%</output></span><input id="drawerDensityRange" type="range" min="0.65" max="1.6" step="0.05" value="1" aria-label="设置粒子密度"></label><div class="drawer-field"><span>画布色彩</span><div class="palette-options" role="group" aria-label="粒子配色"><button class="palette-option" data-palette="mint" type="button" aria-label="松墨配色"><i class="swatch mint"></i></button><button class="palette-option is-active" data-palette="blue" type="button" aria-label="钴蓝配色"><i class="swatch blue"></i></button><button class="palette-option" data-palette="violet" type="button" aria-label="紫墨配色"><i class="swatch violet"></i></button><button class="palette-option" data-palette="gold" type="button" aria-label="陶土配色"><i class="swatch gold"></i></button></div></div><label class="toggle-row"><span>持续流动</span><input id="drawerMotionToggle" type="checkbox" checked><i></i></label><p class="drawer-help">调整即时生效并保存在本机。系统启用“减少动态效果”时，画布会保持静态。</p></aside>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="./particles.js" defer></script><script src="./app.js" defer></script>
+</body>
+</html>
